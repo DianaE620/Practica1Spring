@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.curso.diana.practica1.persistence.ProductoMapper">
+	
+	<update id="crearTablaProductos">
+		CREATE TABLE productos (
+			id INT,
+			nombre TEXT,
+			descripcion TEXT,
+			precio DOUBLE,
+			catalogo_id INT
+		)
+	</update>
+	
+	<select id="obtenerProductos" resultMap="productsResult">
+	  SELECT * FROM productos
+	  <if test="catalogoId!=0">
+			WHERE catalogo_id = #{catalogoId}
+	  </if>
+	</select>
+	
+	<select id="buscarProducto" resultMap="productsResult">
+	  SELECT * FROM productos WHERE id=#{id}
+	</select>
+	
+	<resultMap type="com.curso.diana.practica1.dto.Producto" 
+		id="productsResult">
+		<id column="id" property="id" />
+		<result column="columna1" property="NOMBRE"/>
+		<result column="columna1" property="DESCRIPCION"/>
+		<result column="columna1" property="PRECIO"/>
+		<result column="columna1" property="CATALOGO_ID"/>
+	</resultMap>
+
+	<update id="crearSecuenciaProductos">
+		CREATE SEQUENCE seq_producto
+	</update>
+	
+	<insert id="insertarProducto">
+		<selectKey 
+			resultType="int"
+			keyProperty="id" order="BEFORE">
+			SELECT nextval('seq_producto')</selectKey>
+		INSERT INTO productos(id, nombre, descripcion, precio, catalogo_id)
+		VALUES (#{id},#{producto.nombre},#{producto.descripcion},#{producto.precio},#{producto.catalogo_id})
+	</insert>
+	
+	<delete id="eliminarProducto">
+	  DELETE FROM productos WHERE id = #{id}
+	</delete>
+	
+	<update id="editarProducto">
+	  UPDATE productos SET
+	    nombre=#{producto.nombre},
+	    descripcion=#{producto.descripcion},
+	    precio=#{producto.precio},
+	    catalogo_id=#{producto.catalogo_id}
+	  WHERE id=#{producto.id}
+	</update>
+
+</mapper>

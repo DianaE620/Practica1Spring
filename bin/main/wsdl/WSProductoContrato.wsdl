@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- @editor-info:link autogen="true" source="WSProductoContrato.jws" -->
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:conv="http://www.openuri.org/2002/04/soap/conversation/" xmlns:cw="http://www.openuri.org/2002/04/wsdl/conversation/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:jms="http://www.openuri.org/2002/04/wsdl/jms/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:s0="http://www.openuri.org/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" targetNamespace="http://www.openuri.org/">
+  <types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://www.openuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:ope="http://www.openuri.org/">
+      
+      <s:element name="mostrarProductos">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="catalogoId" type="s:int" minOccurs="0"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="mostrarProductosResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="mostrarProductosResult" type="ope:SalidaProductos" minOccurs="0"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      
+      <s:element name="insertarProducto">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="nombre" type="s:string" minOccurs="1"/>
+            <s:element name="descripcion" type="s:string" minOccurs="1"/>
+            <s:element name="precio" type="s:double" minOccurs="1"/>
+            <s:element name="catalogoId" type="s:int" minOccurs="1"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="insertarProductoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="insertarProductoResult" type="ope:SalidaGeneral" minOccurs="1"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      
+      <s:element name="eliminarProducto">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="productoId" type="s:int" minOccurs="1"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="eliminarProductoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="eliminarProductoResult" type="ope:SalidaGeneral" minOccurs="1"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      
+      <s:element name="editarProducto">
+        <s:complexType>
+          <s:sequence>
+          	<s:element name="id" type="s:int" minOccurs="1"/>
+            <s:element name="nombre" type="s:string" minOccurs="1"/>
+            <s:element name="descripcion" type="s:string" minOccurs="1"/>
+            <s:element name="precio" type="s:double" minOccurs="1"/>
+            <s:element name="catalogoId" type="s:int" minOccurs="1"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="editarProductoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="editarProductoResult" type="ope:SalidaGeneral" minOccurs="1"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+   		
+ 	  <s:complexType name="SalidaProductos">
+        <s:sequence>
+          <s:element name="status" type="s:string" minOccurs="1"/>
+          <s:element name="code" type="s:string" minOccurs="1"/>
+          <s:element name="mensaje" type="s:string" minOccurs="1"/>
+          <s:element name="productos" type="s:string" minOccurs="1" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="SalidaGeneral">
+        <s:sequence>
+          <s:element name="status" type="s:string" minOccurs="1"/>
+          <s:element name="code" type="s:string" minOccurs="1"/>
+          <s:element name="mensaje" type="s:string" minOccurs="1"/>
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+  </types>
+  
+  <message name="mostrarProductosSoapIn">
+    <part name="parameters" element="s0:mostrarProductos"/>
+  </message>
+  <message name="mostrarProductosSoapOut">
+    <part name="parameters" element="s0:mostrarProductosResponse"/>
+  </message>
+  <message name="insertarProductoSoapIn">
+    <part name="parameters" element="s0:insertarProducto"/>
+  </message>
+  <message name="insertarProductoSoapOut">
+    <part name="parameters" element="s0:insertarProductoResponse"/>
+  </message>
+  <message name="eliminarProductoSoapIn">
+    <part name="parameters" element="s0:eliminarProducto"/>
+  </message>
+  <message name="eliminarProductoSoapOut">
+    <part name="parameters" element="s0:eliminarProductoResponse"/>
+  </message>
+  <message name="editarProductoSoapIn">
+    <part name="parameters" element="s0:editarProducto"/>
+  </message>
+  <message name="editarProductoSoapOut">
+    <part name="parameters" element="s0:editarProductoResponse"/>
+  </message>
+  
+  <portType name="ProductosServicioSoap">
+    <operation name="mostrarProductos">
+      <input message="s0:mostrarProductosSoapIn"/>
+      <output message="s0:mostrarProductosSoapOut"/>
+    </operation>
+    <operation name="insertarProducto">
+      <input message="s0:insertarProductoSoapIn"/>
+      <output message="s0:insertarProductoSoapOut"/>
+    </operation>
+    <operation name="eliminarProducto">
+      <input message="s0:eliminarProductoSoapIn"/>
+      <output message="s0:eliminarProductoSoapOut"/>
+    </operation>
+    <operation name="editarProducto">
+      <input message="s0:editarProductoSoapIn"/>
+      <output message="s0:editarProductoSoapOut"/>
+    </operation>
+  </portType>
+  
+  <binding name="ProductosServicioSoap" type="s0:ProductosServicioSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+    <operation name="mostrarProductos">
+      <soap:operation soapAction="http://www.openuri.org/mostrarProductos" style="document"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="insertarProducto">
+      <soap:operation soapAction="http://www.openuri.org/insertarProducto" style="document"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="eliminarProducto">
+      <soap:operation soapAction="http://www.openuri.org/eliminarProducto" style="document"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+     <operation name="editarProducto">
+      <soap:operation soapAction="http://www.openuri.org/editarProducto" style="document"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+  </binding>
+  
+  <service name="ProductosServicio">
+    <port name="ProductosServicioSoap" binding="s0:ProductosServicioSoap">
+      <soap:address location="http://localhost:8080/ws/"/>
+    </port>
+  </service>
+</definitions>

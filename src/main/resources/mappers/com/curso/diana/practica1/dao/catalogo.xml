@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.curso.diana.practica1.persistence.CatalogoMapper">
+	
+	<update id="crearTablaCatalogos">
+		CREATE TABLE catalogos (
+			id INT,
+			nombre TEXT
+		)
+	</update>
+	
+	<select id="mostrarCatalogos" resultMap="catalogResult">
+	  SELECT * FROM catalogos
+	</select>
+	
+	<resultMap type="com.curso.diana.practica1.dto.Catalogo" 
+		id="catalogResult">
+		<id column="id" property="id" />
+		<result column="columna1" property="NOMBRE"/>
+	</resultMap>
+
+	<select id="buscarCatalogo" resultMap="catalogIndividualResult">
+	  SELECT * FROM catalogos WHERE id=#{id}
+	</select>
+	
+	<resultMap type="com.curso.diana.practica1.dto.Catalogo" 
+		id="catalogIndividualResult">
+		<id column="id" property="id" />
+		<result column="columna1" property="NOMBRE"/>
+	</resultMap>
+
+	<update id="crearSecuenciaCatalogo">
+		CREATE SEQUENCE seq_catalogo
+	</update>
+	
+	<insert id="insertarCatalogo">
+		<selectKey 
+			resultType="int"
+			keyProperty="id" order="BEFORE">
+			SELECT nextval('seq_catalogo')</selectKey>
+		INSERT INTO catalogos(id, nombre)
+		VALUES (#{id},#{catalog.nombre})
+	</insert>
+	
+	<delete id="eliminarCatalogo">
+	  DELETE FROM catalogos WHERE id = #{id}
+	</delete>
+	
+	<update id="editarCatalogo">
+	  update catalogos set
+	    nombre = #{nombre}
+	  where id = #{id}
+	</update>
+	
+</mapper>
